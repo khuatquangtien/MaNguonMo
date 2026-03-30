@@ -62,7 +62,7 @@ function lp_stats_shortcode() {
     $output .= "<p>👨‍🎓 Tổng học viên: " . lp_total_students() . "</p>";
     $output .= "<p>✅ Hoàn thành: " . lp_completed_courses() . "</p>";
     $output .= "</div>";
-
+    // Trả về HTML để hiển thị
     return $output;
 }
 add_shortcode('lp_total_stats', 'lp_stats_shortcode');
