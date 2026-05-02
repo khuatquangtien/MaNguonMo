@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: quan_ao_db
+    restart: always
+    ports:
+      - "3307:3306" # Đổi sang cổng 3307 để không đụng hàng với máy bạn
+    environment:
+      MYSQL_ROOT_PASSWORD: tien0399007905
+      MYSQL_DATABASE: wordpress_db
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: quan_ao_wp
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306 # WordPress gọi trực tiếp db trong mạng nội bộ docker nên vẫn dùng 3306
+      WORDPRESS_DB_USER: root # Dùng tài khoản root cho giống với cấu hình Workbench của bạn
+      WORDPRESS_DB_PASSWORD: tien0399007905
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+
+volumes:
+  db_data:
